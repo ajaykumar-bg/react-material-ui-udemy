@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 
@@ -18,7 +18,13 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: '3em',
 	},
 	logo: {
-		height: '7em',
+		height: '8em',
+	},
+	logoContainer: {
+		padding: 0,
+		'&:hover': {
+			backgroundColor: 'transparent',
+		},
 	},
 	tabContainer: {
 		marginLeft: 'auto',
@@ -44,13 +50,39 @@ function Header(props) {
 	const handleTabChange = (e, value) => {
 		setCurrentTab(value);
 	};
+
+	useEffect(() => {
+		if (window.location.pathname === '/' && currentTab !== 0) {
+			setCurrentTab(0);
+		} else if (window.location.pathname === '/services' && currentTab !== 1) {
+			setCurrentTab(1);
+		} else if (window.location.pathname === '/revolution' && currentTab !== 2) {
+			setCurrentTab(2);
+		} else if (window.location.pathname === '/about-us' && currentTab !== 3) {
+			setCurrentTab(3);
+		} else if (window.location.pathname === '/contact-us' && currentTab !== 4) {
+			setCurrentTab(4);
+		} else if (window.location.pathname === '/estimate' && currentTab !== 5) {
+			setCurrentTab(5);
+		}
+	}, [currentTab]);
+
 	return (
 		<React.Fragment>
 			<CssBaseline />
 			<ElevationScroll {...props}>
 				<AppBar color='primary'>
 					<Toolbar disableGutters>
-						<img alt='company logo' src={logo} className={classes.logo} />
+						<Button
+							component={Link}
+							to='/'
+							disableRipple
+							className={classes.logoContainer}
+							onClick={() => setCurrentTab(0)}
+						>
+							<img alt='company logo' src={logo} className={classes.logo} />
+						</Button>
+
 						<Tabs
 							value={currentTab}
 							onChange={handleTabChange}
@@ -89,6 +121,8 @@ function Header(props) {
 							/>
 						</Tabs>
 						<Button
+							component={Link}
+							to='/estimate'
 							variant='contained'
 							color='secondary'
 							className={classes.button}
