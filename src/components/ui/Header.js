@@ -43,6 +43,18 @@ const useStyles = makeStyles((theme) => ({
 		marginRight: '20px',
 		height: '45px',
 	},
+	menu: {
+		backgroundColor: theme.palette.common.blue,
+		color: 'white',
+		borderRadius: 0,
+	},
+	menuItem: {
+		...theme.typography.tab,
+		opacity: 0.7,
+		'&:hover': {
+			opacity: 1,
+		},
+	},
 }));
 
 function Header(props) {
@@ -150,11 +162,14 @@ function Header(props) {
 							keepMounted
 							open={Boolean(menuOpen)}
 							onClose={handleMenuClose}
+							classes={{ paper: classes.menu }}
 							MenuListProps={{ onMouseLeave: handleMenuClose }}
+							elevation={0}
 						>
 							<MenuItem
 								component={Link}
 								to='/services'
+								classes={{ root: classes.menuItem }}
 								onClick={() => {
 									handleMenuClose();
 									setCurrentTab(1);
@@ -165,6 +180,7 @@ function Header(props) {
 							<MenuItem
 								component={Link}
 								to='/custom-software'
+								classes={{ root: classes.menuItem }}
 								onClick={() => {
 									handleMenuClose();
 									setCurrentTab(1);
@@ -175,6 +191,7 @@ function Header(props) {
 							<MenuItem
 								component={Link}
 								to='/mobile-apps'
+								classes={{ root: classes.menuItem }}
 								onClick={() => {
 									handleMenuClose();
 									setCurrentTab(1);
@@ -185,6 +202,7 @@ function Header(props) {
 							<MenuItem
 								component={Link}
 								to='/websites'
+								classes={{ root: classes.menuItem }}
 								onClick={() => {
 									handleMenuClose();
 									setCurrentTab(1);
