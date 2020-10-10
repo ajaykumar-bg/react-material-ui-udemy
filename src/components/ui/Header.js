@@ -8,6 +8,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import ElevationScroll from './ElevationScroll';
 import logo from '../../assets/logo.svg';
@@ -46,9 +48,21 @@ const useStyles = makeStyles((theme) => ({
 function Header(props) {
 	const classes = useStyles();
 	const [currentTab, setCurrentTab] = useState(0);
+	const [anchorEl, setAnchorEl] = useState(null);
+	const [menuOpen, setMenuOpen] = useState(false);
 
 	const handleTabChange = (e, value) => {
 		setCurrentTab(value);
+	};
+
+	const handleMenuClick = (e) => {
+		setAnchorEl(e.currentTarget);
+		setMenuOpen(true);
+	};
+
+	const handleMenuClose = (e) => {
+		setAnchorEl(null);
+		setMenuOpen(false);
 	};
 
 	useEffect(() => {
@@ -94,7 +108,10 @@ function Header(props) {
 								label='Home'
 							/>
 							<Tab
+								aria-owns={anchorEl ? 'simple-menu' : undefined}
+								aria-haspopup={anchorEl ? 'true' : undefined}
 								className={classes.tab}
+								onClick={(e) => handleMenuClick(e)}
 								component={Link}
 								to='/services'
 								label='Services'
@@ -127,6 +144,21 @@ function Header(props) {
 						>
 							Free Estimate
 						</Button>
+						<Menu
+							id='simple-menu'
+							anchorEl={anchorEl}
+							keepMounted
+							open={Boolean(menuOpen)}
+							onClose={handleMenuClose}
+						>
+							<MenuItem onClick={handleMenuClose}>
+								Custom Software Development
+							</MenuItem>
+							<MenuItem onClick={handleMenuClose}>
+								Mobile App Development
+							</MenuItem>
+							<MenuItem onClick={handleMenuClose}>Website Development</MenuItem>
+						</Menu>
 					</Toolbar>
 				</AppBar>
 			</ElevationScroll>
