@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: '3em',
 	},
 	logo: {
-		height: '8em',
+		height: '6em',
 	},
 	logoContainer: {
 		padding: 0,
@@ -111,7 +111,7 @@ function Header(props) {
 								aria-owns={anchorEl ? 'simple-menu' : undefined}
 								aria-haspopup={anchorEl ? 'true' : undefined}
 								className={classes.tab}
-								onClick={(e) => handleMenuClick(e)}
+								onMouseOver={(e) => handleMenuClick(e)}
 								component={Link}
 								to='/services'
 								label='Services'
@@ -150,14 +150,48 @@ function Header(props) {
 							keepMounted
 							open={Boolean(menuOpen)}
 							onClose={handleMenuClose}
+							MenuListProps={{ onMouseLeave: handleMenuClose }}
 						>
-							<MenuItem onClick={handleMenuClose}>
+							<MenuItem
+								component={Link}
+								to='/services'
+								onClick={() => {
+									handleMenuClose();
+									setCurrentTab(1);
+								}}
+							>
+								Services
+							</MenuItem>
+							<MenuItem
+								component={Link}
+								to='/custom-software'
+								onClick={() => {
+									handleMenuClose();
+									setCurrentTab(1);
+								}}
+							>
 								Custom Software Development
 							</MenuItem>
-							<MenuItem onClick={handleMenuClose}>
+							<MenuItem
+								component={Link}
+								to='/mobile-apps'
+								onClick={() => {
+									handleMenuClose();
+									setCurrentTab(1);
+								}}
+							>
 								Mobile App Development
 							</MenuItem>
-							<MenuItem onClick={handleMenuClose}>Website Development</MenuItem>
+							<MenuItem
+								component={Link}
+								to='/websites'
+								onClick={() => {
+									handleMenuClose();
+									setCurrentTab(1);
+								}}
+							>
+								Website Development
+							</MenuItem>
 						</Menu>
 					</Toolbar>
 				</AppBar>
