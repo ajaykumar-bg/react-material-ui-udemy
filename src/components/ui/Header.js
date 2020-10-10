@@ -62,8 +62,6 @@ function Header(props) {
 			setCurrentTab(3);
 		} else if (window.location.pathname === '/contact-us' && currentTab !== 4) {
 			setCurrentTab(4);
-		} else if (window.location.pathname === '/estimate' && currentTab !== 5) {
-			setCurrentTab(5);
 		}
 	}, [currentTab]);
 
