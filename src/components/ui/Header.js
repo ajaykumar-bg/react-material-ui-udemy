@@ -92,16 +92,62 @@ function Header(props) {
 	];
 
 	useEffect(() => {
-		if (window.location.pathname === '/' && currentTab !== 0) {
-			setCurrentTab(0);
-		} else if (window.location.pathname === '/services' && currentTab !== 1) {
-			setCurrentTab(1);
-		} else if (window.location.pathname === '/revolution' && currentTab !== 2) {
-			setCurrentTab(2);
-		} else if (window.location.pathname === '/about-us' && currentTab !== 3) {
-			setCurrentTab(3);
-		} else if (window.location.pathname === '/contact-us' && currentTab !== 4) {
-			setCurrentTab(4);
+		switch (window.location.pathname) {
+			case '/': {
+				if (currentTab !== 0) {
+					setCurrentTab(0);
+				}
+				break;
+			}
+			case '/services': {
+				if (currentTab !== 1) {
+					setCurrentTab(1);
+					setSelectedIndex(0);
+				}
+				break;
+			}
+			case '/custom-software': {
+				if (currentTab !== 1) {
+					setCurrentTab(1);
+					setSelectedIndex(1);
+				}
+				break;
+			}
+			case '/mobile-apps': {
+				if (currentTab !== 1) {
+					setCurrentTab(1);
+					setSelectedIndex(2);
+				}
+				break;
+			}
+			case '/websites': {
+				if (currentTab !== 1) {
+					setCurrentTab(1);
+					setSelectedIndex(3);
+				}
+				break;
+			}
+			case '/revolution': {
+				if (currentTab !== 2) {
+					setCurrentTab(2);
+				}
+				break;
+			}
+			case '/about-us': {
+				if (currentTab !== 3) {
+					setCurrentTab(3);
+				}
+				break;
+			}
+			case '/contact-us': {
+				if (currentTab !== 4) {
+					setCurrentTab(4);
+				}
+				break;
+			}
+
+			default:
+				break;
 		}
 	}, [currentTab]);
 
