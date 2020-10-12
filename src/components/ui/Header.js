@@ -382,7 +382,6 @@ function Header(props) {
 						</ListItemText>
 					</ListItem>
 					<ListItem
-						className={classes.drawerItem}
 						onClick={() => {
 							setDrawerOpen(false);
 							setCurrentTab(4);
@@ -405,7 +404,7 @@ function Header(props) {
 						</ListItemText>
 					</ListItem>
 					<ListItem
-						className={[classes.drawerItem, classes.drawerItemEstimate]}
+						className={[classes.drawerItemEstimate]}
 						onClick={() => {
 							setDrawerOpen(false);
 						}}
