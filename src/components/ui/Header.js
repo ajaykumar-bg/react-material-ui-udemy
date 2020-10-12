@@ -101,7 +101,12 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.common.orange,
 	},
 	drawerItemSelected: {
-		opacity: 1,
+		'& .MuiListItemText-root': {
+			opacity: 1,
+		},
+	},
+	appBar: {
+		zIndex: theme.zIndex.modal + 1,
 	},
 }));
 
@@ -232,6 +237,7 @@ function Header(props) {
 				onClose={handleMenuClose}
 				classes={{ paper: classes.menu }}
 				MenuListProps={{ onMouseLeave: handleMenuClose }}
+				style={{ zIndex: 1302 }}
 				elevation={0}
 			>
 				{menuOptions.map((option, i) => (
@@ -264,6 +270,7 @@ function Header(props) {
 				onClose={() => setDrawerOpen(false)}
 				classes={{ paper: classes.drawer }}
 			>
+				<div className={classes.toolbarMargin} />
 				<List>
 					{routes.map((route, index) => (
 						<ListItem
@@ -272,26 +279,23 @@ function Header(props) {
 								setDrawerOpen(false);
 								setCurrentTab(route.activeIndex);
 							}}
+							classes={{ selected: classes.drawerItemSelected }}
 							divider
 							button
 							component={Link}
 							to={route.link}
 							selected={currentTab === route.activeIndex}
 						>
-							<ListItemText
-								className={
-									currentTab === route.activeIndex
-										? [classes.drawerItem, classes.drawerItemSelected]
-										: classes.drawerItem
-								}
-								disableTypography
-							>
+							<ListItemText className={classes.drawerItem} disableTypography>
 								{route.name}
 							</ListItemText>
 						</ListItem>
 					))}
 					<ListItem
-						className={[classes.drawerItemEstimate]}
+						classes={{
+							root: classes.drawerItemEstimate,
+							selected: classes.drawerItemSelected,
+						}}
 						onClick={() => {
 							setDrawerOpen(false);
 						}}
@@ -300,14 +304,7 @@ function Header(props) {
 						component={Link}
 						to='/estimate'
 					>
-						<ListItemText
-							className={
-								currentTab === 5
-									? [classes.drawerItem, classes.drawerItemSelected]
-									: classes.drawerItem
-							}
-							disableTypography
-						>
+						<ListItemText className={classes.drawerItem} disableTypography>
 							Free Estimate
 						</ListItemText>
 					</ListItem>
@@ -328,7 +325,7 @@ function Header(props) {
 		<React.Fragment>
 			<CssBaseline />
 			<ElevationScroll {...props}>
-				<AppBar color='primary'>
+				<AppBar position='fixed' color='primary' className={classes.appBar}>
 					<Toolbar disableGutters>
 						<Button
 							component={Link}
