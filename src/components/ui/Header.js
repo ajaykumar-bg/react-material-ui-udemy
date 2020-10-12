@@ -12,6 +12,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import ElevationScroll from './ElevationScroll';
 import logo from '../../assets/logo.svg';
@@ -69,19 +72,33 @@ const useStyles = makeStyles((theme) => ({
 			opacity: 1,
 		},
 	},
+	drawerIcon: {
+		height: '50px',
+		width: '50px',
+		color: 'white',
+	},
+	drawerIconContainer: {
+		marginLeft: 'auto',
+		'&:hover': {
+			backgroundColor: 'transparent',
+		},
+	},
 }));
 
 function Header(props) {
 	const classes = useStyles();
 	const theme = useTheme();
+	const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 	const matches = useMediaQuery(theme.breakpoints.down('md'));
+
+	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [currentTab, setCurrentTab] = useState(0);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [selectedIndex, setSelectedIndex] = useState(0);
 
-	const handleTabChange = (e, value) => {
-		setCurrentTab(value);
+	const handleTabChange = (e, newValue) => {
+		setCurrentTab(newValue);
 	};
 
 	const handleMenuClick = (e) => {
@@ -243,6 +260,28 @@ function Header(props) {
 		</React.Fragment>
 	);
 
+	const drawer = (
+		<React.Fragment>
+			<SwipeableDrawer
+				disableBackdropTransition={!iOS}
+				disableDiscovery={iOS}
+				open={drawerOpen}
+				onOpen={() => setDrawerOpen(true)}
+				onClose={() => setDrawerOpen(false)}
+			>
+				Example Drawer
+			</SwipeableDrawer>
+			<IconButton
+				className={classes.drawerIconContainer}
+				aria-label=''
+				onClick={() => setDrawerOpen(!drawerOpen)}
+				disableRipple
+			>
+				<MenuIcon className={classes.drawerIcon} />
+			</IconButton>
+		</React.Fragment>
+	);
+
 	return (
 		<React.Fragment>
 			<CssBaseline />
@@ -258,7 +297,7 @@ function Header(props) {
 						>
 							<img alt='company logo' src={logo} className={classes.logo} />
 						</Button>
-						{matches ? null : tabs}
+						{matches ? drawer : tabs}
 					</Toolbar>
 				</AppBar>
 			</ElevationScroll>
