@@ -8,6 +8,8 @@ import theme from './ui/Theme';
 import './App.css';
 
 import Header from './ui/Header';
+import Footer from './ui/Footer';
+
 import Home from './Home';
 
 // const useStyles = makeStyles((theme) => ({
@@ -25,6 +27,7 @@ function App() {
 			</div> */}
 			<BrowserRouter>
 				<Header />
+				
 				<Switch>
 					<Route exact path='/' component={() => <Home/>} />
 					<Route exact path='/services' component={() => <div>Services</div>} />
@@ -52,6 +55,7 @@ function App() {
 					/>
 					<Route exact path='/estimate' component={() => <div>Estimate</div>} />
 				</Switch>
+				<Footer />
 			</BrowserRouter>
 		</ThemeProvider>
 	);
