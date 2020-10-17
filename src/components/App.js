@@ -8,6 +8,7 @@ import theme from './ui/Theme';
 import './App.css';
 
 import Header from './ui/Header';
+import Home from './Home';
 
 // const useStyles = makeStyles((theme) => ({
 // 	root: {
@@ -25,7 +26,7 @@ function App() {
 			<BrowserRouter>
 				<Header />
 				<Switch>
-					<Route exact path='/' component={() => <div>Home</div>} />
+					<Route exact path='/' component={() => <Home/>} />
 					<Route exact path='/services' component={() => <div>Services</div>} />
 					<Route
 						exact
