@@ -324,7 +324,7 @@ function Header(props) {
 	);
 
 	return (
-		<React.Fragment>
+		<header>
 			<CssBaseline />
 			<ElevationScroll {...props}>
 				<AppBar position='fixed' color='primary' className={classes.appBar}>
@@ -343,7 +343,7 @@ function Header(props) {
 				</AppBar>
 			</ElevationScroll>
 			<div className={classes.toolbarMargin} />
-		</React.Fragment>
+		</header>
 	);
 }
 

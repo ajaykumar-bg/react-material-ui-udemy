@@ -33,7 +33,7 @@ function App() {
 					setSelectedIndex={setSelectedIndex}
 				/>
 
-				<div className={classes.mainContent}>
+				<main className={classes.mainContent}>
 					<Switch>
 						<Route exact path='/' component={() => <Home />} />
 						<Route
@@ -77,7 +77,7 @@ function App() {
 							component={() => <div>Estimate</div>}
 						/>
 					</Switch>
-				</div>
+				</main>
 				<Footer
 					currentTab={currentTab}
 					setCurrentTab={setCurrentTab}

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
 	footer: {
 		backgroundColor: theme.palette.common.blue,
 		width: '100%',
-		zIndex: 1302,
+		zIndex: theme.zIndex.modal + 1,
 		position: 'relative',
 	},
 	adornment: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 function Footer(props) {
 	const classes = useStyles();
 	return (
-		<div className={classes.footer}>
+		<footer className={classes.footer}>
 			<Grid container justify='center' className={classes.mainContainer}>
 				<Grid item className={classes.gridItem}>
 					<Grid container direction='column' spacing={2}>
@@ -197,7 +197,7 @@ function Footer(props) {
 				src={footerAdornment}
 				className={classes.adornment}
 			/>
-		</div>
+		</footer>
 	);
 }
 
