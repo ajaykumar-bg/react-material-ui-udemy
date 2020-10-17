@@ -117,13 +117,12 @@ function Header(props) {
 	const matches = useMediaQuery(theme.breakpoints.down('md'));
 
 	const [drawerOpen, setDrawerOpen] = useState(false);
-	const [currentTab, setCurrentTab] = useState(0);
+
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [menuOpen, setMenuOpen] = useState(false);
-	const [selectedIndex, setSelectedIndex] = useState(0);
 
 	const handleTabChange = (e, newValue) => {
-		setCurrentTab(newValue);
+		props.setCurrentTab(newValue);
 	};
 
 	const handleMenuClick = (e) => {
@@ -139,7 +138,7 @@ function Header(props) {
 	const handleMenuItemClick = (e, index) => {
 		setAnchorEl(null);
 		setMenuOpen(false);
-		setSelectedIndex(index);
+		props.setSelectedIndex(index);
 	};
 
 	const menuOptions = [
@@ -183,10 +182,13 @@ function Header(props) {
 		[...menuOptions, ...routes].forEach((route) => {
 			switch (window.location.pathname) {
 				case `${route.link}`: {
-					if (currentTab !== route.activeIndex) {
-						setCurrentTab(route.activeIndex);
-						if (route.selectedIndex && route.selectedIndex !== selectedIndex) {
-							setSelectedIndex(route.selectedIndex);
+					if (props.currentTab !== route.activeIndex) {
+						props.setCurrentTab(route.activeIndex);
+						if (
+							route.selectedIndex &&
+							route.selectedIndex !== props.selectedIndex
+						) {
+							props.setSelectedIndex(route.selectedIndex);
 						}
 					}
 					break;
@@ -195,12 +197,12 @@ function Header(props) {
 					break;
 			}
 		});
-	}, [currentTab, menuOptions, selectedIndex, routes]);
+	}, [props.currentTab, menuOptions, props.selectedIndex, routes, props]);
 
 	const tabs = (
 		<React.Fragment>
 			<Tabs
-				value={currentTab}
+				value={props.currentTab}
 				onChange={handleTabChange}
 				className={classes.tabContainer}
 				indicatorColor='primary'
@@ -248,10 +250,10 @@ function Header(props) {
 						classes={{ root: classes.menuItem }}
 						onClick={(event) => {
 							handleMenuItemClick(event, i);
-							setCurrentTab(1);
+							props.setCurrentTab(1);
 							handleMenuClose();
 						}}
-						selected={i === selectedIndex && currentTab === 1}
+						selected={i === props.selectedIndex && props.currentTab === 1}
 					>
 						{option.name}
 					</MenuItem>
@@ -277,14 +279,14 @@ function Header(props) {
 							key={`${route.name}_${index}`}
 							onClick={() => {
 								setDrawerOpen(false);
-								setCurrentTab(route.activeIndex);
+								props.setCurrentTab(route.activeIndex);
 							}}
 							classes={{ selected: classes.drawerItemSelected }}
 							divider
 							button
 							component={Link}
 							to={route.link}
-							selected={currentTab === route.activeIndex}
+							selected={props.currentTab === route.activeIndex}
 						>
 							<ListItemText className={classes.drawerItem} disableTypography>
 								{route.name}
@@ -332,7 +334,7 @@ function Header(props) {
 							to='/'
 							disableRipple
 							className={classes.logoContainer}
-							onClick={() => setCurrentTab(0)}
+							onClick={() => props.setCurrentTab(0)}
 						>
 							<img alt='company logo' src={logo} className={classes.logo} />
 						</Button>
